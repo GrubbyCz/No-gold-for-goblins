@@ -6,6 +6,9 @@ pygame.init()
 ROZLISENI_X = 1920
 ROZLISENI_Y = 1022
 FPS = 60
+pozadi = pygame.image.load("pozadi.png")
+pozadi = pygame.transform.scale(pozadi, (ROZLISENI_X, ROZLISENI_Y))
+
 
 
 hodiny = pygame.time.Clock()
@@ -21,5 +24,13 @@ while True:
     
     
     
-pygame.display.update()
-hodiny.tick(FPS)
+    
+    
+    
+    
+    
+
+    
+    okno.blit(pozadi, (0, 0))
+    pygame.display.update()
+    hodiny.tick(FPS)
