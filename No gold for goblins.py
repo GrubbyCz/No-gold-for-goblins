@@ -3,11 +3,20 @@ import pygame
 
 pygame.init()
 
+velikostx = 150
+velikosty = 200
 ROZLISENI_X = 1920
 ROZLISENI_Y = 1022
 FPS = 60
 pozadi = pygame.image.load("pozadi.png")
 pozadi = pygame.transform.scale(pozadi, (ROZLISENI_X, ROZLISENI_Y))
+tank = pygame.image.load("tank.png")
+tank = pygame.transform.scale(tank, (velikostx, velikosty))
+
+
+pozice_x = (ROZLISENI_X - velikostx) / 2
+pozice_y = (ROZLISENI_Y - velikosty) / 2
+
 
 
 
@@ -21,16 +30,10 @@ while True:
             sys.exit()
             
     klavesy = pygame.key.get_pressed()
-    
-    
-    
-    
-    
-    
-    
-    
+
+    okno.blit(pozadi, (0, 0))
+    okno.blit(tank, (pozice_x, pozice_y)) 
 
     
-    okno.blit(pozadi, (0, 0))
     pygame.display.update()
     hodiny.tick(FPS)
