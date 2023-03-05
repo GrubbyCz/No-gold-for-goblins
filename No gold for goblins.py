@@ -18,22 +18,19 @@ pozice_x = (ROZLISENI_X - velikostx) / 2
 pozice_y = (ROZLISENI_Y - velikosty) / 2
 
 
-
+#zobrazení okna
 
 hodiny = pygame.time.Clock()
 okno = pygame.display.set_mode((ROZLISENI_X, ROZLISENI_Y))
+okno.blit(pozadi, (0, 0))
+okno.blit(tank, (pozice_x, pozice_y)) 
+pygame.display.set_caption("No gold for goblins")
+
 
 while True:
     for udalost in pygame.event.get():
         if udalost.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-            
-    klavesy = pygame.key.get_pressed()
-
-    okno.blit(pozadi, (0, 0))
-    okno.blit(tank, (pozice_x, pozice_y)) 
-
-    
     pygame.display.update()
     hodiny.tick(FPS)
