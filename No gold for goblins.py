@@ -4,7 +4,7 @@ import math
 
 pygame.init()
 
-velikost_x = 150
+velikost_x = 200
 velikost_y = 200
 ROZLISENI_X = 1920
 ROZLISENI_Y = 1022
@@ -60,10 +60,15 @@ while True:
     if pozice_y < 0:
         pozice_y = 0
         
-        
-    tank = pygame.transform.rotate(tank1, uhel)   
+    uhel = round(uhel)    
+    tank = pygame.transform.rotate(tank1, uhel)
+    okno.blit(
+        tank,
+        (300 - int(tank.get_width() / 2),
+         pozice_y - int(tank.get_height() / 2))
+    )
     okno.blit(pozadi, (0, 0))
     okno.blit(tank, (pozice_x, pozice_y))
-    
+   
     pygame.display.update()
     hodiny.tick(FPS)
