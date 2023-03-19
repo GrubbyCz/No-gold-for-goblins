@@ -1,9 +1,13 @@
+#základní blbosti
 import sys
 import pygame
 from math import sin, cos
-
 pygame.init()
 
+
+
+
+#proměnné
 velikost_x = 200
 velikost_y = 200
 ROZLISENI_X = 1920
@@ -20,16 +24,25 @@ pozice_x = (ROZLISENI_X - velikost_x) / 2
 pozice_y = (ROZLISENI_Y - velikost_y) / 2
 font = pygame.font.SysFont('Consolas', 30)
 
-#zobrazení okna
 
+
+
+
+#zobrazení okna
 hodiny = pygame.time.Clock()
 okno = pygame.display.set_mode((ROZLISENI_X, ROZLISENI_Y))
 pygame.display.set_caption("No gold for goblins")
 
+
+
+
+#timer
 counter, text = 0, '0'.rjust(3)
 pygame.time.set_timer(pygame.USEREVENT, 1000)
 
 
+
+#konec
 while True:
     klavesy = pygame.key.get_pressed()
     for udalost in pygame.event.get():
@@ -41,11 +54,16 @@ while True:
             sys.exit()
             run = False
             
+
+
 #pohyb dopředu a dozadu
     if klavesy[pygame.K_DOWN]:
         pozice_y += rychlost
     if klavesy[pygame.K_UP]:
         pozice_y -= rychlost
+
+
+
 #otočení doleva a doprava        
     if klavesy[pygame.K_LEFT]:
         uhel += 1
@@ -56,7 +74,7 @@ while True:
      
      
      
-     
+#kontroly    
     if pozice_x > ROZLISENI_X - velikost_x:
         pozice_x = ROZLISENI_X - velikost_x
     if pozice_y > ROZLISENI_Y - velikost_y:
@@ -66,11 +84,14 @@ while True:
     if pozice_y < 0:
         pozice_y = 0
         
-       
+      
+      
     tank = pygame.transform.rotate(tank1, uhel)
     okno.blit(pozadi, (0, 0))
     okno.blit(tank, (pozice_x, pozice_y))
     okno.blit(font.render(text, True, (0, 0, 0)), (32, 48))   
+
+
 
     pygame.display.update()
     hodiny.tick(FPS)
