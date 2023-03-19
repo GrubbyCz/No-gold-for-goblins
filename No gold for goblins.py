@@ -1,6 +1,6 @@
 import sys
 import pygame
-import math
+from math import sin, cos
 
 pygame.init()
 
@@ -15,9 +15,10 @@ tank1 = pygame.image.load("tank.png")
 tank1 = pygame.transform.scale(tank1, (velikost_x, velikost_y))
 rychlost = 5
 uhel = 0
+smer = 0
 pozice_x = (ROZLISENI_X - velikost_x) / 2
 pozice_y = (ROZLISENI_Y - velikost_y) / 2
-
+font = pygame.font.SysFont('Consolas', 30)
 
 #zobrazení okna
 
@@ -25,15 +26,20 @@ hodiny = pygame.time.Clock()
 okno = pygame.display.set_mode((ROZLISENI_X, ROZLISENI_Y))
 pygame.display.set_caption("No gold for goblins")
 
-
+counter, text = 0, '0'.rjust(3)
+pygame.time.set_timer(pygame.USEREVENT, 1000)
 
 
 while True:
     klavesy = pygame.key.get_pressed()
     for udalost in pygame.event.get():
+        if udalost.type == pygame.USEREVENT:
+            counter += 1
+            text = str(counter).rjust(3) 
         if udalost.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+            run = False
             
 #pohyb dopředu a dozadu
     if klavesy[pygame.K_DOWN]:
@@ -46,7 +52,7 @@ while True:
     if klavesy[pygame.K_RIGHT]:
         uhel -= 1
         
-     
+   
      
      
      
@@ -64,6 +70,7 @@ while True:
     tank = pygame.transform.rotate(tank1, uhel)
     okno.blit(pozadi, (0, 0))
     okno.blit(tank, (pozice_x, pozice_y))
-   
+    okno.blit(font.render(text, True, (0, 0, 0)), (32, 48))   
+
     pygame.display.update()
     hodiny.tick(FPS)
