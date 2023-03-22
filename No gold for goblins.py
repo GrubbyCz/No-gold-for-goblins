@@ -91,7 +91,7 @@ while True:
     okno.blit(tank, (pozice_x, pozice_y))
     okno.blit(font.render(text, True, (0, 0, 0)), (32, 48))   
 
-
+#zbytečný řádek111111111111111111111111111111111111111111111111111111111111111111111111
 
     pygame.display.update()
     hodiny.tick(FPS)
