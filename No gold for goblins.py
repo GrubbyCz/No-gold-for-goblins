@@ -81,17 +81,17 @@ while True:
      
      
 #kontroly    
-    if pozice_x > ROZLISENI_X - velikost_x:
-        pozice_x = ROZLISENI_X - velikost_x
-    if pozice_y > ROZLISENI_Y - velikost_y:
-        pozice_y = ROZLISENI_Y - velikost_y
-    if pozice_x < 0:
-        pozice_x = 0
-    if pozice_y < 0:
-        pozice_y = 0
+    if pozice.x > ROZLISENI_X:
+        pozice.x = ROZLISENI_X
+    if pozice.y > ROZLISENI_Y:
+        pozice.y = ROZLISENI_Y
+    if pozice.x < 0:
+        pozice.x = 0
+    if pozice.y < 0:
+        pozice.y = 0
         
       
-     
+
      
      
      
