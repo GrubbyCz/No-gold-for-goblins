@@ -73,7 +73,7 @@ while True:
 
 
 
-#otočení doleva a doprava        
+     
     
         
    
