@@ -1,7 +1,9 @@
 #základní blbosti
 import sys
+import os
 import pygame
-from math import sin, cos
+from pygame.sprite import Sprite
+from math import radians, sin, cos
 pygame.init()
 
 
@@ -18,8 +20,7 @@ pozadi = pygame.transform.scale(pozadi, (ROZLISENI_X, ROZLISENI_Y))
 tank1 = pygame.image.load("tank.png")
 tank1 = pygame.transform.scale(tank1, (velikost_x, velikost_y))
 rychlost = 5
-uhel = 0
-smer = 0
+running = True
 pozice_x = (ROZLISENI_X - velikost_x) / 2
 pozice_y = (ROZLISENI_Y - velikost_y) / 2
 font = pygame.font.SysFont('Consolas', 30)
@@ -33,6 +34,9 @@ hodiny = pygame.time.Clock()
 okno = pygame.display.set_mode((ROZLISENI_X, ROZLISENI_Y))
 pygame.display.set_caption("No gold for goblins")
 
+pozice = pygame.math.Vector2(okno.get_rect().center)
+smer = pygame.math.Vector2(5, 0)
+uhel = smer.angle_to((1, 0))
 
 
 
@@ -57,18 +61,20 @@ while True:
 
 
 #pohyb dopředu a dozadu
-    if klavesy[pygame.K_DOWN]:
-        pozice_y += rychlost
-    if klavesy[pygame.K_UP]:
-        pozice_y -= rychlost
+    
+    if klavesy[pygame.K_w]:
+        pozice += smer
+    if klavesy[pygame.K_s]:
+        pozice -= smer
+    if klavesy[pygame.K_a]:
+        smer.rotate_ip(-1)
+    if klavesy[pygame.K_d]: 
+        smer.rotate_ip(1)
 
 
 
 #otočení doleva a doprava        
-    if klavesy[pygame.K_LEFT]:
-        uhel += 1
-    if klavesy[pygame.K_RIGHT]:
-        uhel -= 1
+    
         
    
      
@@ -85,13 +91,22 @@ while True:
         pozice_y = 0
         
       
-      
+     
+     
+     
+     
+     
+    okno.fill(0)
+    uhel = smer.angle_to((1, 0))
+    
     tank = pygame.transform.rotate(tank1, uhel)
+    
+    
     okno.blit(pozadi, (0, 0))
-    okno.blit(tank, (pozice_x, pozice_y))
+    okno.blit(tank, tank.get_rect(center = (round(pozice.x), round(pozice.y))))
     okno.blit(font.render(text, True, (0, 0, 0)), (32, 48))   
 
 #zbytečný řádek111111111111111111111111111111111111111111111111111111111111111111111111
 
-    pygame.display.update()
+    pygame.display.flip()
     hodiny.tick(FPS)
