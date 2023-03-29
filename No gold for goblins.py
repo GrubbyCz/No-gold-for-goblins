@@ -45,6 +45,31 @@ counter, text = 0, '0'.rjust(3)
 pygame.time.set_timer(pygame.USEREVENT, 1000)
 
 
+#střala
+
+
+class Bullet(pygame.sprite.Sprite):
+    def __init__(self, mouse, player):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.Surface([4, 10])
+        self.image.fill(black)
+        self.mouse_x, self.mouse_y = mouse[0], mouse[1]
+        self.player = player
+        self.rect = self.image.get_rect()
+    def update(self):
+        speed = 4.
+        range = 200
+        distance = [self.mouse_x - self.player[0], self.mouse_y - self.player[1]]
+        norm = math.sqrt(distance[0] ** 2 + distance[1] ** 2)
+        direction = [distance[0] / norm, distance[1 ] / norm]
+        bullet_vector = [direction[0] * speed, direction[1] * speed]
+        self.rect.x -= bullet_vector[0]
+        self.rect.y -= bullet_vector[1]
+
+        bullet = Bullet(pygame.mouse.get_pos(), [player.rect.x, player.rect.y])
+
+
+
 
 #konec
 while True:
@@ -57,8 +82,7 @@ while True:
             pygame.quit()
             sys.exit()
             run = False
-            
-
+       
 
 #pohyb dopředu a dozadu
     
@@ -90,11 +114,30 @@ while True:
     if pozice.y < 0:
         pozice.y = 0
         
-      
-
+#střela
+    
+    
+ 
      
-     
-     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
      
     okno.fill(0)
     uhel = smer.angle_to((1, 0))
