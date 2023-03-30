@@ -1,5 +1,6 @@
 #základní blbosti
 import sys
+import random
 import os
 import pygame
 from pygame.sprite import Sprite
@@ -24,8 +25,22 @@ running = True
 pozice_x = (ROZLISENI_X - velikost_x) / 2
 pozice_y = (ROZLISENI_Y - velikost_y) / 2
 font = pygame.font.SysFont('Consolas', 30)
+horníx = random.randint(0, 1000)
+horníy = ROZLISENI_X - (ROZLISENI_X + 70)
+dolníx = 4
+dolníy = 4
+praváx = 4
+praváy = 4
+leváx = 4
+leváy = 4
+enemyspeed = 2
 
+#goblin
+def enemy():
+    goblin = pygame.image.load("goblin.png")
 
+    goblin = pygame.transform.rotozoom(goblin, 180, 1)
+    okno.blit(goblin, (300, 600))
 
 
 
@@ -144,12 +159,12 @@ while True:
     
     tank = pygame.transform.rotate(tank1, uhel)
     
-    
+    enemy()
     okno.blit(pozadi, (0, 0))
     okno.blit(tank, tank.get_rect(center = (round(pozice.x), round(pozice.y))))
     okno.blit(font.render(text, True, (0, 0, 0)), (32, 48))   
 
 #zbytečný řádek111111111111111111111111111111111111111111111111111111111111111111111111
 
-    pygame.display.flip()
+    pygame.display.update()
     hodiny.tick(FPS)
