@@ -16,10 +16,14 @@ velikost_y = 200
 ROZLISENI_X = 1920
 ROZLISENI_Y = 1022
 FPS = 60
+goblin_velikost_x = 75
+goblin_velikost_y = 75
 pozadi = pygame.image.load("pozadi.png")
 pozadi = pygame.transform.scale(pozadi, (ROZLISENI_X, ROZLISENI_Y))
 tank1 = pygame.image.load("tank.png")
 tank1 = pygame.transform.scale(tank1, (velikost_x, velikost_y))
+goblin = pygame.image.load("goblin.png")
+goblin = pygame.transform.scale(goblin, (goblin_velikost_x, goblin_velikost_y))
 rychlost = 5
 running = True
 pozice_x = (ROZLISENI_X - velikost_x) / 2
@@ -35,12 +39,6 @@ leváx = 4
 leváy = 4
 enemyspeed = 2
 
-#goblin
-def enemy():
-    goblin = pygame.image.load("goblin.png")
-
-    goblin = pygame.transform.rotozoom(goblin, 180, 1)
-    okno.blit(goblin, (300, 600))
 
 
 
@@ -54,6 +52,9 @@ smer = pygame.math.Vector2(5, 0)
 uhel = smer.angle_to((1, 0))
 
 
+#goblin
+
+
 
 #timer
 counter, text = 0, '0'.rjust(3)
@@ -61,7 +62,7 @@ pygame.time.set_timer(pygame.USEREVENT, 1000)
 
 
 #střala
-
+    
 
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, mouse, player):
@@ -143,6 +144,9 @@ while True:
     
     
     
+#score
+    
+
     
     
     
@@ -150,20 +154,22 @@ while True:
     
     
     
+
     
-    
-    
-     
+#konec     
     okno.fill(0)
     uhel = smer.angle_to((1, 0))
     
     tank = pygame.transform.rotate(tank1, uhel)
     
-    enemy()
+    
+    
+    
+    
     okno.blit(pozadi, (0, 0))
     okno.blit(tank, tank.get_rect(center = (round(pozice.x), round(pozice.y))))
     okno.blit(font.render(text, True, (0, 0, 0)), (32, 48))   
-
+    okno.blit(goblin, (500, 200))
 #zbytečný řádek111111111111111111111111111111111111111111111111111111111111111111111111
 
     pygame.display.update()
