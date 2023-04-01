@@ -8,8 +8,6 @@ from math import radians, sin, cos
 pygame.init()
 
 
-
-
 #proměnné
 ZELENÁ = (17, 207, 40)
 velikost_x = 200
@@ -29,9 +27,9 @@ pozice_y = (ROZLISENI_Y - velikost_y) / 2
 font = pygame.font.SysFont('Consolas', 30)
 horníx = random.randint(0, 1000)
 horníy = ROZLISENI_X - (ROZLISENI_X + 70)
-mince = 100
+mince = 5
 trezor = pygame.image.load("trezor.png")
-
+broke = pygame.image.load("broke.png")
 
 rychlostg0 = 1
 rychlostg1 = 2
@@ -100,7 +98,6 @@ nilbog3_x = random.randint(0, 1900)
 nilbog3_y = random.randint(1, 1)
 
 
-
 #enemy
 def enemy0(x, y):
     okno.blit(goblin0, (x, y))
@@ -131,8 +128,6 @@ def nilbog3(x, y):
     okno.blit(nilbog, (x, y))    
 
 
-
-
 #timer
 counter, text = 0, '0'.rjust(3)
 pygame.time.set_timer(pygame.USEREVENT, 1000)
@@ -161,9 +156,6 @@ class Bullet(pygame.sprite.Sprite):
 
         bullet = Bullet(pygame.mouse.get_pos(), [player.rect.x, player.rect.y])
 
-
-
-
 #konec
 while True:
     klavesy = pygame.key.get_pressed()
@@ -180,10 +172,6 @@ while True:
     okno.fill(ZELENÁ)
 
 
-
-
-
-
 #pohyb dopředu a dozadu
     
     if klavesy[pygame.K_w]:
@@ -194,10 +182,7 @@ while True:
         smer.rotate_ip(-2)
     if klavesy[pygame.K_d]: 
         smer.rotate_ip(2)      
-   
-     
-     
-     
+       
 #kontroly    
     if pozice.x > ROZLISENI_X:
         pozice.x = ROZLISENI_X
@@ -233,8 +218,25 @@ while True:
     kolize_3 = pygame.Rect.colliderect(hitbox_trezor, hitbox_goblin3)
     kolize_4 = pygame.Rect.colliderect(hitbox_trezor, hitbox_goblin4)
     
+    if kolize_0:
+        mince -= 1
+        enemy0_otoč = True
+    if kolize_1:
+        mince -= 1
+        enemy1_otoč = True    
+    if kolize_2:
+        mince -= 1
+        enemy2_otoč = True
+    if kolize_3:
+        mince -= 1
+        enemy3_otoč = True
+    if kolize_4:
+        mince -= 1
+        enemy4_otoč = True
+    
+    
+    
 #NEPŘÁTELÉ...    
-
 
 #goblin...0
     
@@ -393,12 +395,13 @@ while True:
     okno.blit(trezor, (0, ROZLISENI_Y - 40))
     text_mince = str(mince).rjust(3)   
     okno.blit(font.render(text_mince, True, (0, 0, 0)), (ROZLISENI_X / 2, ROZLISENI_Y - 40))
-    
-    
     okno.blit(tank, tank.get_rect(center = (round(pozice.x), round(pozice.y))))
+    
+    if mince <= 0:
+        okno.blit(broke, (0, 0)) 
+    
     okno.blit(font.render(text, True, (0, 0, 0)), (32, 48))   
     
-#zbytečný řádek111111111111111111111111111111111111111111111111111111111111111111111111
-
+#úplý konec
     pygame.display.update()
     hodiny.tick(FPS)
