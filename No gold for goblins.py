@@ -216,9 +216,9 @@ while True:
     
     
     
+ 
+
     
-#hápéčka na trezoru    
-    okno.blit(font.render(mince, True, (0, 0, 0)), (ROZLISENI_X / 2, ROZLISENI_Y / 2 + 40))
 #hitboxy
 
     hitbox_trezor = pygame.draw.rect(okno, ZELENÁ, (0, ROZLISENI_Y - 40, 1920, 40))
@@ -227,6 +227,11 @@ while True:
     hitbox_goblin2 = pygame.draw.rect(okno, ZELENÁ, (enemy2_x, enemy2_y, goblin_velikost_x, goblin_velikost_y))
     hitbox_goblin3 = pygame.draw.rect(okno, ZELENÁ, (enemy3_x, enemy3_y, goblin_velikost_x, goblin_velikost_y))
     hitbox_goblin4 = pygame.draw.rect(okno, ZELENÁ, (enemy4_x, enemy4_y, goblin_velikost_x, goblin_velikost_y))    
+    kolize_0 = pygame.Rect.colliderect(hitbox_trezor, hitbox_goblin0)
+    kolize_1 = pygame.Rect.colliderect(hitbox_trezor, hitbox_goblin1)
+    kolize_2 = pygame.Rect.colliderect(hitbox_trezor, hitbox_goblin2)
+    kolize_3 = pygame.Rect.colliderect(hitbox_trezor, hitbox_goblin3)
+    kolize_4 = pygame.Rect.colliderect(hitbox_trezor, hitbox_goblin4)
     
 #NEPŘÁTELÉ...    
 
@@ -386,6 +391,10 @@ while True:
     uhel = smer.angle_to((1, 0))
     tank = pygame.transform.rotate(tank1, uhel) 
     okno.blit(trezor, (0, ROZLISENI_Y - 40))
+    text_mince = str(mince).rjust(3)   
+    okno.blit(font.render(text_mince, True, (0, 0, 0)), (ROZLISENI_X / 2, ROZLISENI_Y - 40))
+    
+    
     okno.blit(tank, tank.get_rect(center = (round(pozice.x), round(pozice.y))))
     okno.blit(font.render(text, True, (0, 0, 0)), (32, 48))   
     
