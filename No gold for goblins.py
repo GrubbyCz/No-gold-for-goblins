@@ -22,8 +22,16 @@ pozadi = pygame.image.load("pozadi.png")
 pozadi = pygame.transform.scale(pozadi, (ROZLISENI_X, ROZLISENI_Y))
 tank1 = pygame.image.load("tank.png")
 tank1 = pygame.transform.scale(tank1, (velikost_x, velikost_y))
-goblin = pygame.image.load("goblin.png")
-goblin = pygame.transform.scale(goblin, (goblin_velikost_x, goblin_velikost_y))
+
+goblin0 = pygame.image.load("goblin.png")
+goblin0 = pygame.transform.scale(goblin0, (goblin_velikost_x, goblin_velikost_y))
+goblin1 = pygame.image.load("goblin.png")
+goblin1 = pygame.transform.scale(goblin1, (goblin_velikost_x, goblin_velikost_y))
+goblin2 = pygame.image.load("goblin.png")
+goblin2 = pygame.transform.scale(goblin2, (goblin_velikost_x, goblin_velikost_y))
+goblin3 = pygame.image.load("goblin.png")
+goblin3 = pygame.transform.scale(goblin3, (goblin_velikost_x, goblin_velikost_y))
+
 rychlost = 5
 running = True
 pozice_x = (ROZLISENI_X - velikost_x) / 2
@@ -52,35 +60,70 @@ smer = pygame.math.Vector2(5, 0)
 uhel = smer.angle_to((1, 0))
 
 
-#goblin
-goblin = pygame.image.load("goblin.png")
-goblin = pygame.transform.scale(goblin, (goblin_velikost_x, goblin_velikost_y))
-goblin = pygame.transform.rotate(goblin, 0)
+#GOBLIN a NILBOG
+nilbog = pygame.image.load("nilbog.png")
+nilbog = pygame.transform.scale(nilbog, (goblin_velikost_x, goblin_velikost_y))
 
+#enemy x y
 enemy0_x = random.randint(0, 1900)
 enemy0_y = random.randint(1, 1)
+enemy0_otoč = False 
 
 enemy1_x = random.randint(0, 1900)
 enemy1_y = random.randint(1, 1)
 
+
 enemy2_x = random.randint(0, 1900)
 enemy2_y = random.randint(1, 1)
+
 
 enemy3_x = random.randint(0, 1900)
 enemy3_y = random.randint(1, 1)
 
 
+
+#nilbog x y
+nilbog0_x = random.randint(0, 1900)
+nilbog0_y = random.randint(1, 1)
+
+nilbog1_x = random.randint(0, 1900)
+nilbog1_y = random.randint(1, 1)
+
+nilbog2_x = random.randint(0, 1900)
+nilbog2_y = random.randint(1, 1)
+
+nilbog3_x = random.randint(0, 1900)
+nilbog3_y = random.randint(1, 1)
+
+
+
+#enemy
 def enemy0(x, y):
-    okno.blit(goblin, (x, y))
+    okno.blit(goblin0, (x, y))
 
 def enemy1(x, y):
-    okno.blit(goblin, (x, y))
+    okno.blit(goblin1, (x, y))
 
 def enemy2(x, y):
-    okno.blit(goblin, (x, y))
+    okno.blit(goblin2, (x, y))
 
 def enemy3(x, y):
-    okno.blit(goblin, (x, y))
+    okno.blit(goblin3, (x, y))
+    
+    
+#nilbog    
+def nilbog0(x, y):
+    okno.blit(nilbog, (x, y))
+
+def nilbog1(x, y):
+    okno.blit(nilbog, (x, y))
+
+def nilbog2(x, y):
+    okno.blit(nilbog, (x, y))
+
+def nilbog3(x, y):
+    okno.blit(nilbog, (x, y))    
+
 
 
 
@@ -142,15 +185,9 @@ while True:
     if klavesy[pygame.K_s]:
         pozice -= smer
     if klavesy[pygame.K_a]:
-        smer.rotate_ip(-1)
+        smer.rotate_ip(-2)
     if klavesy[pygame.K_d]: 
-        smer.rotate_ip(1)
-
-
-
-     
-    
-        
+        smer.rotate_ip(2)      
    
      
      
@@ -179,20 +216,33 @@ while True:
     
     
 #NEPŘÁTELÉ...    
+
+
 #goblin...0
-    enemy0(enemy0_x, enemy0_y)
-    enemy0_y += 6
-    if enemy0_y = 950:
     
     if enemy0_y > 950:
+        enemy0_otoč = True
+        
+    if enemy0_y < 21:
+        enemy0_otoč = False 
+     
+    if enemy0_otoč == False:
+        enemy0(enemy0_x, enemy0_y)
+        enemy0_y += 6
+
+        goblin0 = pygame.image.load("goblin.png")
+        goblin0 = pygame.transform.scale(goblin0, (goblin_velikost_x, goblin_velikost_y))
+               
+    if enemy0_otoč == True:
+        enemy0(enemy0_x, enemy0_y)
+        enemy0_y -= 6
+
+        goblin0 = pygame.image.load("nilbog.png")
+        goblin0 = pygame.transform.scale(goblin0, (goblin_velikost_x, goblin_velikost_y))
+        
+    if enemy0_y == 20:
         enemy0_x = random.randint(0, 1900)
         enemy0_y = random.randint(1, 1)
-        
-    
-    
-    
-    
-    
     
     
     
@@ -210,9 +260,6 @@ while True:
     
     
     
-    
-    
-    
 #goblin...2   
     enemy2(enemy2_x, enemy2_y)
     enemy2_y += 1
@@ -223,10 +270,7 @@ while True:
     
     
     
-    
-    
-    
-    
+       
     
     
 #goblin...3    
@@ -249,11 +293,7 @@ while True:
 #konec     
     
     uhel = smer.angle_to((1, 0))
-    
     tank = pygame.transform.rotate(tank1, uhel)
-    
-    
-   
     
     
    
