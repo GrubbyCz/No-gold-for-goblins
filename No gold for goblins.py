@@ -53,6 +53,34 @@ uhel = smer.angle_to((1, 0))
 
 
 #goblin
+goblin = pygame.image.load("goblin.png")
+goblin = pygame.transform.scale(goblin, (goblin_velikost_x, goblin_velikost_y))
+goblin = pygame.transform.rotate(goblin, 0)
+
+enemy_x = random.randint(0, 1900)
+enemy_y = random.randint(1000, 1000)
+
+enemy1_x = random.randint(0, 735)
+enemy1_y = random.randint(50, 150)
+
+enemy2_x = random.randint(0, 735)
+enemy2_y = random.randint(50, 150)
+
+enemy3_x = random.randint(0, 735)
+enemy3_y = random.randint(50, 150)
+
+
+def enemy(x, y):
+    okno.blit(goblin, (x, y))
+
+def enemy1(x, y):
+    okno.blit(goblin, (x, y))
+
+def enemy2(x, y):
+    okno.blit(goblin, (x, y))
+
+def enemy3(x, y):
+    okno.blit(goblin, (x, y))
 
 
 
@@ -99,6 +127,13 @@ while True:
             sys.exit()
             run = False
        
+#okno
+    okno.fill(0)
+    okno.blit(pozadi, (0, 0))
+
+
+
+
 
 #pohyb dopředu a dozadu
     
@@ -144,7 +179,32 @@ while True:
     
     
     
-#score
+#nepřátelé
+    enemy(enemy_x, enemy_y)
+    enemy_y += 5
+    if enemy_y > 950:
+        enemy_x = random.randint(0, 1900)
+        enemy_y = random.randint(1, 1)
+        
+    
+    enemy1(enemy1_x, enemy1_y)
+    enemy1_y += 1
+    if enemy1_y > 950:
+        enemy1_x = random.randint(0, 1900)
+        enemy1_y = random.randint(1, 1)
+        
+    enemy2(enemy2_x, enemy2_y)
+    enemy2_y += 1.5
+    if enemy2_y > 950:
+        enemy2_x = random.randint(0, 1900)
+        enemy2_y = random.randint(1, 1)
+        
+    
+    enemy3(enemy3_x, enemy3_y)
+    enemy3_y += 2
+    if enemy3_y > 950:
+        enemy3_x = random.randint(0, 1900)
+        enemy3_y = random.randint(1, 1)
     
 
     
@@ -157,19 +217,19 @@ while True:
 
     
 #konec     
-    okno.fill(0)
+    
     uhel = smer.angle_to((1, 0))
     
     tank = pygame.transform.rotate(tank1, uhel)
     
     
+   
     
     
-    
-    okno.blit(pozadi, (0, 0))
+   
     okno.blit(tank, tank.get_rect(center = (round(pozice.x), round(pozice.y))))
     okno.blit(font.render(text, True, (0, 0, 0)), (32, 48))   
-    okno.blit(goblin, (500, 200))
+    
 #zbytečný řádek111111111111111111111111111111111111111111111111111111111111111111111111
 
     pygame.display.update()
