@@ -182,7 +182,7 @@ while True:
 #goblin...0
     enemy0(enemy0_x, enemy0_y)
     enemy0_y += 6
-    if enemy0_y
+    if enemy0_y = 950:
     
     if enemy0_y > 950:
         enemy0_x = random.randint(0, 1900)
