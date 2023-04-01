@@ -11,6 +11,7 @@ pygame.init()
 
 
 #proměnné
+ZELENÁ = (17, 207, 40)
 velikost_x = 200
 velikost_y = 200
 ROZLISENI_X = 1920
@@ -18,8 +19,7 @@ ROZLISENI_Y = 1022
 FPS = 60
 goblin_velikost_x = 75
 goblin_velikost_y = 75
-pozadi = pygame.image.load("pozadi.png")
-pozadi = pygame.transform.scale(pozadi, (ROZLISENI_X, ROZLISENI_Y))
+
 tank1 = pygame.image.load("tank.png")
 tank1 = pygame.transform.scale(tank1, (velikost_x, velikost_y))
 
@@ -35,7 +35,7 @@ rychlostg0 = 1
 rychlostg1 = 2
 rychlostg2 = 3
 rychlostg3 = 4
-
+rychlostg4 = 2.5
 
 #zobrazení okna
 hodiny = pygame.time.Clock()
@@ -57,6 +57,8 @@ goblin2 = pygame.image.load("goblin.png")
 goblin2 = pygame.transform.scale(goblin2, (goblin_velikost_x, goblin_velikost_y))
 goblin3 = pygame.image.load("goblin.png")
 goblin3 = pygame.transform.scale(goblin3, (goblin_velikost_x, goblin_velikost_y))
+goblin4 = pygame.image.load("goblin.png")
+goblin4 = pygame.transform.scale(goblin4, (goblin_velikost_x, goblin_velikost_y))
 
 nilbog = pygame.image.load("nilbog.png")
 nilbog = pygame.transform.scale(nilbog, (goblin_velikost_x, goblin_velikost_y))
@@ -78,6 +80,9 @@ enemy3_x = random.randint(0, 1900)
 enemy3_y = random.randint(1, 1)
 enemy3_otoč = False
 
+enemy4_x = random.randint(0, 1900)
+enemy4_y = random.randint(1, 1)
+enemy4_otoč = False
 
 #nilbog x y
 nilbog0_x = random.randint(0, 1900)
@@ -107,7 +112,9 @@ def enemy2(x, y):
 def enemy3(x, y):
     okno.blit(goblin3, (x, y))
     
-    
+def enemy4(x, y):
+    okno.blit(goblin4, (x, y))
+
 #nilbog    
 def nilbog0(x, y):
     okno.blit(nilbog, (x, y))
@@ -168,8 +175,8 @@ while True:
             run = False
        
 #okno
-    okno.fill(0)
-    okno.blit(pozadi, (0, 0))
+    okno.fill(ZELENÁ)
+
 
 
 
@@ -242,91 +249,127 @@ while True:
             
 #goblin...1    
     
-    if enemy1_y > 950:
-        enemy1_otoč = True
-        
-    if enemy1_y < 20:
-        enemy1_otoč = False 
- 
-    if enemy1_otoč == False:
-        enemy1(enemy1_x, enemy1_y)
-        enemy1_y += rychlostg1
+    if counter >= 30:
+        if enemy1_y > 950:
+            enemy1_otoč = True
+            
+        if enemy1_y < 20:
+            enemy1_otoč = False 
+     
+        if enemy1_otoč == False:
+            enemy1(enemy1_x, enemy1_y)
+            enemy1_y += rychlostg1
 
-        goblin1 = pygame.image.load("goblin.png")
-        goblin1 = pygame.transform.scale(goblin1, (goblin_velikost_x, goblin_velikost_y))
-        
-    if enemy1_otoč == True:
-        enemy1(enemy1_x, enemy1_y)
-        enemy1_y -= rychlostg1
+            goblin1 = pygame.image.load("goblin.png")
+            goblin1 = pygame.transform.scale(goblin1, (goblin_velikost_x, goblin_velikost_y))
+            
+        if enemy1_otoč == True:
+            enemy1(enemy1_x, enemy1_y)
+            enemy1_y -= rychlostg1
 
-        goblin1 = pygame.image.load("nilbog.png")
-        goblin1 = pygame.transform.scale(goblin1, (goblin_velikost_x, goblin_velikost_y))
-        if enemy1_y <= 20:
-            enemy1_x = random.randint(0, 1900)
+            goblin1 = pygame.image.load("nilbog.png")
+            goblin1 = pygame.transform.scale(goblin1, (goblin_velikost_x, goblin_velikost_y))
+            if enemy1_y <= 20:
+                enemy1_x = random.randint(0, 1900)
         
        
 #goblin...2   
     
-    if enemy2_y > 950:
-        enemy2_otoč = True
-        
-    if enemy2_y < 20:
-        enemy2_otoč = False 
- 
-    if enemy2_otoč == False:
-        enemy2(enemy2_x, enemy2_y)
-        enemy2_y += rychlostg2
+    if counter >= 60:
+        if enemy2_y > 950:
+            enemy2_otoč = True
+            
+        if enemy2_y < 20:
+            enemy2_otoč = False 
+     
+        if enemy2_otoč == False:
+            enemy2(enemy2_x, enemy2_y)
+            enemy2_y += rychlostg2
 
-        goblin2 = pygame.image.load("goblin.png")
-        goblin2 = pygame.transform.scale(goblin2, (goblin_velikost_x, goblin_velikost_y))
-        
-    if enemy2_otoč == True:
-        enemy2(enemy2_x, enemy2_y)
-        enemy2_y -= rychlostg2
+            goblin2 = pygame.image.load("goblin.png")
+            goblin2 = pygame.transform.scale(goblin2, (goblin_velikost_x, goblin_velikost_y))
+            
+        if enemy2_otoč == True:
+            enemy2(enemy2_x, enemy2_y)
+            enemy2_y -= rychlostg2
 
-        goblin2 = pygame.image.load("nilbog.png")
-        goblin2 = pygame.transform.scale(goblin2, (goblin_velikost_x, goblin_velikost_y))
-        if enemy2_y <= 20:
-            enemy2_x = random.randint(0, 1900)
+            goblin2 = pygame.image.load("nilbog.png")
+            goblin2 = pygame.transform.scale(goblin2, (goblin_velikost_x, goblin_velikost_y))
+            if enemy2_y <= 20:
+                enemy2_x = random.randint(0, 1900)
         
         
 #goblin...3    
     
-    if enemy3_y > 950:
-        enemy3_otoč = True
-        
-    if enemy3_y < 20:
-        enemy3_otoč = False 
- 
-    if enemy3_otoč == False:
-        enemy3(enemy3_x, enemy3_y)
-        enemy3_y += rychlostg3
+    if counter >= 90:   
+        if enemy3_y > 950:
+            enemy3_otoč = True
+            
+        if enemy3_y < 20:
+            enemy3_otoč = False 
+     
+        if enemy3_otoč == False:
+            enemy3(enemy3_x, enemy3_y)
+            enemy3_y += rychlostg3
 
-        goblin3 = pygame.image.load("goblin.png")
-        goblin3 = pygame.transform.scale(goblin3, (goblin_velikost_x, goblin_velikost_y))
-        
-    if enemy3_otoč == True:
-        enemy3(enemy3_x, enemy3_y)
-        enemy3_y -= rychlostg3
+            goblin3 = pygame.image.load("goblin.png")
+            goblin3 = pygame.transform.scale(goblin3, (goblin_velikost_x, goblin_velikost_y))
+            
+        if enemy3_otoč == True:
+            enemy3(enemy3_x, enemy3_y)
+            enemy3_y -= rychlostg3
 
-        goblin3 = pygame.image.load("nilbog.png")
-        goblin3 = pygame.transform.scale(goblin3, (goblin_velikost_x, goblin_velikost_y))
-        if enemy3_y <= 20:
-            enemy3_x = random.randint(0, 1900)
-    
+            goblin3 = pygame.image.load("nilbog.png")
+            goblin3 = pygame.transform.scale(goblin3, (goblin_velikost_x, goblin_velikost_y))
+            if enemy3_y <= 20:
+                enemy3_x = random.randint(0, 1900)
 
-#čas (zvýšení rychlosti pobýhání golinků)
+
+#goblin...4    
+
+    if counter >= 120:   
+        if enemy4_y > 950:
+            enemy4_otoč = True
+            
+        if enemy4_y < 20:
+            enemy4_otoč = False 
+     
+        if enemy4_otoč == False:
+            enemy4(enemy4_x, enemy4_y)
+            enemy4_y += rychlostg4
+
+            goblin4 = pygame.image.load("goblin.png")
+            goblin4 = pygame.transform.scale(goblin4, (goblin_velikost_x, goblin_velikost_y))
+            
+        if enemy4_otoč == True:
+            enemy4(enemy4_x, enemy4_y)
+            enemy4_y -= rychlostg4
+
+            goblin4 = pygame.image.load("nilbog.png")
+            goblin4 = pygame.transform.scale(goblin4, (goblin_velikost_x, goblin_velikost_y))
+            if enemy4_y <= 20:
+                enemy4_x = random.randint(0, 1900)
+
+
+#čas (zvýšení rychlosti pobíhání golinků)
     if counter == 10:
-        rychlostg0 += 0.02
-        rychlostg1 += 0.02
-        rychlostg2 += 0.02
-        rychlostg3 += 0.02
+        rychlostg0 += 0.01
+        rychlostg1 += 0.01
+        rychlostg2 += 0.01
+        rychlostg3 += 0.01
+        rychlostg4 += 0.01
     if counter == 20:
-        rychlostg0 += 0.02
-        rychlostg1 += 0.02
-        rychlostg2 += 0.02
-        rychlostg3 += 0.02
-
+        rychlostg0 += 0.01
+        rychlostg1 += 0.01
+        rychlostg2 += 0.01
+        rychlostg3 += 0.01
+        rychlostg4 += 0.01
+    if counter == 70:
+        rychlostg0 += 0.01
+        rychlostg1 += 0.01
+        rychlostg2 += 0.01
+        rychlostg3 += 0.01
+        rychlostg4 += 0.01
 
 
 #konec     
