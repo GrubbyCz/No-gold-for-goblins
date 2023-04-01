@@ -57,20 +57,20 @@ goblin = pygame.image.load("goblin.png")
 goblin = pygame.transform.scale(goblin, (goblin_velikost_x, goblin_velikost_y))
 goblin = pygame.transform.rotate(goblin, 0)
 
-enemy_x = random.randint(0, 1900)
-enemy_y = random.randint(1000, 1000)
+enemy0_x = random.randint(0, 1900)
+enemy0_y = random.randint(1, 1)
 
-enemy1_x = random.randint(0, 735)
-enemy1_y = random.randint(50, 150)
+enemy1_x = random.randint(0, 1900)
+enemy1_y = random.randint(1, 1)
 
-enemy2_x = random.randint(0, 735)
-enemy2_y = random.randint(50, 150)
+enemy2_x = random.randint(0, 1900)
+enemy2_y = random.randint(1, 1)
 
-enemy3_x = random.randint(0, 735)
-enemy3_y = random.randint(50, 150)
+enemy3_x = random.randint(0, 1900)
+enemy3_y = random.randint(1, 1)
 
 
-def enemy(x, y):
+def enemy0(x, y):
     okno.blit(goblin, (x, y))
 
 def enemy1(x, y):
@@ -178,30 +178,60 @@ while True:
     
     
     
+#NEPŘÁTELÉ...    
+#goblin...0
+    enemy0(enemy0_x, enemy0_y)
+    enemy0_y += 6
+    if enemy0_y
     
-#nepřátelé
-    enemy(enemy_x, enemy_y)
-    enemy_y += 5
-    if enemy_y > 950:
-        enemy_x = random.randint(0, 1900)
-        enemy_y = random.randint(1, 1)
+    if enemy0_y > 950:
+        enemy0_x = random.randint(0, 1900)
+        enemy0_y = random.randint(1, 1)
         
     
+    
+    
+    
+    
+    
+    
+    
+#goblin...1    
     enemy1(enemy1_x, enemy1_y)
-    enemy1_y += 1
+    enemy1_y += 0.4
     if enemy1_y > 950:
         enemy1_x = random.randint(0, 1900)
         enemy1_y = random.randint(1, 1)
         
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+#goblin...2   
     enemy2(enemy2_x, enemy2_y)
-    enemy2_y += 1.5
+    enemy2_y += 1
     if enemy2_y > 950:
         enemy2_x = random.randint(0, 1900)
         enemy2_y = random.randint(1, 1)
         
     
+    
+    
+    
+    
+    
+    
+    
+    
+#goblin...3    
     enemy3(enemy3_x, enemy3_y)
-    enemy3_y += 2
+    enemy3_y += 0.6
     if enemy3_y > 950:
         enemy3_x = random.randint(0, 1900)
         enemy3_y = random.randint(1, 1)
