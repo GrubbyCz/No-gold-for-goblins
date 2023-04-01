@@ -22,7 +22,6 @@ goblin_velikost_y = 75
 
 tank1 = pygame.image.load("tank.png")
 tank1 = pygame.transform.scale(tank1, (velikost_x, velikost_y))
-
 rychlost = 5
 running = True
 pozice_x = (ROZLISENI_X - velikost_x) / 2
@@ -30,6 +29,9 @@ pozice_y = (ROZLISENI_Y - velikost_y) / 2
 font = pygame.font.SysFont('Consolas', 30)
 horníx = random.randint(0, 1000)
 horníy = ROZLISENI_X - (ROZLISENI_X + 70)
+mince = 100
+trezor = pygame.image.load("trezor.png")
+
 
 rychlostg0 = 1
 rychlostg1 = 2
@@ -215,9 +217,16 @@ while True:
     
     
     
-    
-    
-    
+#hápéčka na trezoru    
+    okno.blit(font.render(mince, True, (0, 0, 0)), (ROZLISENI_X / 2, ROZLISENI_Y / 2 + 40))
+#hitboxy
+
+    hitbox_trezor = pygame.draw.rect(okno, ZELENÁ, (0, ROZLISENI_Y - 40, 1920, 40))
+    hitbox_goblin0 = pygame.draw.rect(okno, ZELENÁ, (enemy0_x, enemy0_y, goblin_velikost_x, goblin_velikost_y))
+    hitbox_goblin1 = pygame.draw.rect(okno, ZELENÁ, (enemy1_x, enemy1_y, goblin_velikost_x, goblin_velikost_y))
+    hitbox_goblin2 = pygame.draw.rect(okno, ZELENÁ, (enemy2_x, enemy2_y, goblin_velikost_x, goblin_velikost_y))
+    hitbox_goblin3 = pygame.draw.rect(okno, ZELENÁ, (enemy3_x, enemy3_y, goblin_velikost_x, goblin_velikost_y))
+    hitbox_goblin4 = pygame.draw.rect(okno, ZELENÁ, (enemy4_x, enemy4_y, goblin_velikost_x, goblin_velikost_y))    
     
 #NEPŘÁTELÉ...    
 
@@ -375,10 +384,8 @@ while True:
 #konec     
     
     uhel = smer.angle_to((1, 0))
-    tank = pygame.transform.rotate(tank1, uhel)
-    
-    
-   
+    tank = pygame.transform.rotate(tank1, uhel) 
+    okno.blit(trezor, (0, ROZLISENI_Y - 40))
     okno.blit(tank, tank.get_rect(center = (round(pozice.x), round(pozice.y))))
     okno.blit(font.render(text, True, (0, 0, 0)), (32, 48))   
     
