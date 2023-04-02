@@ -164,26 +164,24 @@ pygame.time.set_timer(pygame.USEREVENT, 1000)
 
 #střala
     
+class Bullet(Sprite):
+    def __init__(self, position, direction):
+        super().__init__()
+        self.image = pygame.image.load("bobek.png") 
+        self.image = pygame.transform.scale(self.image, (50, 50))
+        self.rect = self.image.get_rect(center=position)
+        self.hitbox = pygame.Rect(self.rect.x, self.rect.y, self.rect.width, self.rect.height)
+        self.direction = direction
+        self.speed = 10
 
-class Bullet(pygame.sprite.Sprite):
-    def __init__(self, mouse, player):
-        pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface([4, 10])
-        self.image.fill(black)
-        self.mouse_x, self.mouse_y = mouse[0], mouse[1]
-        self.player = player
-        self.rect = self.image.get_rect()
     def update(self):
-        speed = 4.
-        range = 200
-        distance = [self.mouse_x - self.player[0], self.mouse_y - self.player[1]]
-        norm = math.sqrt(distance[0] ** 2 + distance[1] ** 2)
-        direction = [distance[0] / norm, distance[1 ] / norm]
-        bullet_vector = [direction[0] * speed, direction[1] * speed]
-        self.rect.x -= bullet_vector[0]
-        self.rect.y -= bullet_vector[1]
+        self.rect.move_ip(self.speed * self.direction[0], self.speed * self.direction[1])
+        self.hitbox.move_ip(self.speed * self.direction[0], self.speed * self.direction[1])
+        if not okno.get_rect().colliderect(self.rect):
+            self.kill()
 
-        bullet = Bullet(pygame.mouse.get_pos(), [player.rect.x, player.rect.y])
+bullets = pygame.sprite.Group()
+
 
 #konec
 while True:
@@ -196,7 +194,10 @@ while True:
             pygame.quit()
             sys.exit()
             run = False
-       
+        elif udalost.type == pygame.KEYDOWN:
+            if udalost.key == pygame.K_SPACE:
+                bullet = Bullet(pozice, smer)
+                bullets.add(bullet)
 #okno
     okno.fill(ZELENÁ)
 
@@ -222,16 +223,6 @@ while True:
     if pozice.y < 0:
         pozice.y = 0
         
-#střela
-    
-    
- 
-     
-    
-    
-    
- 
-
     
 #hitboxy
 
@@ -269,7 +260,68 @@ while True:
         mince -= 3
         enemyM_otoč = True 
     
+
+
+#střela...zmizí
+        
+    for bullet in bullets:
+        if bullet.hitbox.colliderect(hitbox_goblin0):
+            bullet.kill()
+            enemy0_x = random.randint(0, 1900)
+            enemy0_y = random.randint(1, 1)
+            if enemy0_otoč == True:   
+                mince += 1
     
+    
+    for bullet in bullets:
+        if bullet.hitbox.colliderect(hitbox_goblin1):
+            bullet.kill()
+            enemy1_x = random.randint(0, 1900)
+            enemy1_y = random.randint(1, 1)
+            if enemy1_otoč == True:   
+                mince += 1
+    
+    
+    for bullet in bullets:
+        if bullet.hitbox.colliderect(hitbox_goblin2):
+            bullet.kill()
+            enemy2_x = random.randint(0, 1900)
+            enemy2_y = random.randint(1, 1)
+            if enemy2_otoč == True:   
+                mince += 1
+    
+    
+    
+    for bullet in bullets:
+        if bullet.hitbox.colliderect(hitbox_goblin3):
+            bullet.kill()
+            enemy3_x = random.randint(0, 1900)
+            enemy3_y = random.randint(1, 1)
+            if enemy3_otoč == True:   
+                mince += 1
+    
+    
+    
+    for bullet in bullets:
+        if bullet.hitbox.colliderect(hitbox_goblin4):
+            bullet.kill()
+            enemy4_x = random.randint(0, 1900)
+            enemy4_y = random.randint(1, 1)
+            if enemy4_otoč == True:   
+                mince += 1
+    
+    
+    
+    for bullet in bullets:
+        if bullet.hitbox.colliderect(hitbox_goblinM):
+            bullet.kill()
+            enemyM_x = random.randint(0, 1900)
+            enemyM_y = random.randint(1, 1)
+            if enemyM_otoč == True:   
+                mince += 3
+                
+
+
 #NEPŘÁTELÉ...    
 
 #goblin...0
@@ -460,7 +512,8 @@ while True:
         okno.blit(broke, (0, 0)) 
     
     okno.blit(font.render(text, True, (0, 0, 0)), (32, 48))   
-    
+    bullets.update()
+    bullets.draw(okno)
 #úplý konec
     pygame.display.update()
     hodiny.tick(FPS)
