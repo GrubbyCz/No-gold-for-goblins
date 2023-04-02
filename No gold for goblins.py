@@ -9,6 +9,7 @@ pygame.init()
 
 
 #proměnné
+
 ZELENÁ = (17, 207, 40)
 velikost_x = 200
 velikost_y = 200
@@ -29,7 +30,7 @@ pozice_y = (ROZLISENI_Y - velikost_y) / 2
 font = pygame.font.SysFont('Consolas', 30)
 horníx = random.randint(0, 1000)
 horníy = ROZLISENI_X - (ROZLISENI_X + 70)
-mince = 50
+mince = 2
 trezor = pygame.image.load("trezor.png")
 broke = pygame.image.load("broke.png")
 
@@ -39,7 +40,10 @@ rychlostg2 = 3
 rychlostg3 = 4
 rychlostg4 = 2.5
 rychlostgM = 3
+
+
 #zobrazení okna
+
 hodiny = pygame.time.Clock()
 okno = pygame.display.set_mode((ROZLISENI_X, ROZLISENI_Y))
 pygame.display.set_caption("No gold for goblins")
@@ -64,15 +68,13 @@ goblin4 = pygame.transform.scale(goblin4, (goblin_velikost_x, goblin_velikost_y)
 goblinM = pygame.image.load("goblin3.png")
 goblinM = pygame.transform.scale(goblinM, (goblinM_velikost_x, goblinM_velikost_y))
 
-
-
-
 nilbog = pygame.image.load("nilbog.png")
 nilbog = pygame.transform.scale(nilbog, (goblin_velikost_x, goblin_velikost_y))
 nilbogM = pygame.image.load("nilbog3.png")
 nilbogM = pygame.transform.scale(nilbogM, (goblinM_velikost_x, goblinM_velikost_y))
 
 #enemy x y
+
 enemy0_x = random.randint(0, 1900)
 enemy0_y = random.randint(1, 1)
 enemy0_otoč = False 
@@ -99,6 +101,7 @@ enemyM_otoč = False
 
 
 #nilbog x y
+
 nilbog0_x = random.randint(0, 1900)
 nilbog0_y = random.randint(1, 1)
 
@@ -119,6 +122,7 @@ nilbogM_y = random.randint(1, 1)
 
 
 #enemy
+
 def enemy0(x, y):
     okno.blit(goblin0, (x, y))
 
@@ -138,8 +142,8 @@ def enemyM(x, y):
     okno.blit(goblinM, (x, y))
 
 
-
 #nilbog    
+
 def nilbog0(x, y):
     okno.blit(nilbog0, (x, y))
 
@@ -157,7 +161,10 @@ def nilbog4(x, y):
 
 def nilbogM(x, y):
     okno.blit(nilbogM, (x, y))
+    
+    
 #timer
+
 counter, text = 0, '0'.rjust(3)
 pygame.time.set_timer(pygame.USEREVENT, 1000)
 
@@ -184,6 +191,7 @@ bullets = pygame.sprite.Group()
 
 
 #konec
+
 while True:
     klavesy = pygame.key.get_pressed()
     for udalost in pygame.event.get():
@@ -198,7 +206,10 @@ while True:
             if udalost.key == pygame.K_SPACE:
                 bullet = Bullet(pozice, smer)
                 bullets.add(bullet)
+
+
 #okno
+    
     okno.fill(ZELENÁ)
 
 
@@ -213,7 +224,9 @@ while True:
     if klavesy[pygame.K_d]: 
         smer.rotate_ip(2)      
        
+
 #kontroly    
+    
     if pozice.x > ROZLISENI_X:
         pozice.x = ROZLISENI_X
     if pozice.y > ROZLISENI_Y:
@@ -233,13 +246,16 @@ while True:
     hitbox_goblin3 = pygame.draw.rect(okno, ZELENÁ, (enemy3_x, enemy3_y, goblin_velikost_x, goblin_velikost_y))
     hitbox_goblin4 = pygame.draw.rect(okno, ZELENÁ, (enemy4_x, enemy4_y, goblin_velikost_x, goblin_velikost_y))    
     hitbox_goblinM = pygame.draw.rect(okno, ZELENÁ, (enemyM_x, enemyM_y, goblinM_velikost_x, goblinM_velikost_y))
+    
     kolize_0 = pygame.Rect.colliderect(hitbox_trezor, hitbox_goblin0)
     kolize_1 = pygame.Rect.colliderect(hitbox_trezor, hitbox_goblin1)
     kolize_2 = pygame.Rect.colliderect(hitbox_trezor, hitbox_goblin2)
     kolize_3 = pygame.Rect.colliderect(hitbox_trezor, hitbox_goblin3)
     kolize_4 = pygame.Rect.colliderect(hitbox_trezor, hitbox_goblin4)
     kolize_M = pygame.Rect.colliderect(hitbox_trezor, hitbox_goblinM)
-    
+
+
+#kolize...-mince    
     
     if kolize_0:
         mince -= 1
@@ -260,7 +276,6 @@ while True:
         mince -= 3
         enemyM_otoč = True 
     
-
 
 #střela...zmizí
         
@@ -289,8 +304,7 @@ while True:
             enemy2_y = random.randint(1, 1)
             if enemy2_otoč == True:   
                 mince += 1
-    
-    
+        
     
     for bullet in bullets:
         if bullet.hitbox.colliderect(hitbox_goblin3):
@@ -299,7 +313,6 @@ while True:
             enemy3_y = random.randint(1, 1)
             if enemy3_otoč == True:   
                 mince += 1
-    
     
     
     for bullet in bullets:
@@ -311,7 +324,6 @@ while True:
                 mince += 1
     
     
-    
     for bullet in bullets:
         if bullet.hitbox.colliderect(hitbox_goblinM):
             bullet.kill()
@@ -320,7 +332,6 @@ while True:
             if enemyM_otoč == True:   
                 mince += 3
                 
-
 
 #NEPŘÁTELÉ...    
 
@@ -452,9 +463,10 @@ while True:
             if enemy4_y <= 20:
                 enemy4_x = random.randint(0, 1900)
 
+
 #goblin...Miniboss
     
-    if counter >= 25:   
+    if counter >= 150:   
         if enemyM_y > 950:
             enemyM_otoč = True
             
@@ -479,26 +491,44 @@ while True:
 
 
 #čas (zvýšení rychlosti pobíhání golinků)
+    
     if counter == 10:
         rychlostg0 += 0.01
         rychlostg1 += 0.01
         rychlostg2 += 0.01
         rychlostg3 += 0.01
         rychlostg4 += 0.01
+        rychlostgM += 0.01
     if counter == 20:
         rychlostg0 += 0.01
         rychlostg1 += 0.01
         rychlostg2 += 0.01
         rychlostg3 += 0.01
         rychlostg4 += 0.01
+        rychlostgM += 0.01
     if counter == 70:
         rychlostg0 += 0.01
         rychlostg1 += 0.01
         rychlostg2 += 0.01
         rychlostg3 += 0.01
         rychlostg4 += 0.01
-
-
+        rychlostgM += 0.01
+    if counter == 200:
+        rychlostg0 += 0.1
+        rychlostg1 += 0.1
+        rychlostg2 += 0.1
+        rychlostg3 += 0.1
+        rychlostg4 += 0.1
+        rychlostgM += 0.1
+    if counter == 250:
+        rychlostg0 += 0.1
+        rychlostg1 += 0.1
+        rychlostg2 += 0.1
+        rychlostg3 += 0.1
+        rychlostg4 += 0.1
+        rychlostgM += 0.1
+        
+              
 #konec     
     
     uhel = smer.angle_to((1, 0))
@@ -507,13 +537,14 @@ while True:
     text_mince = str(mince).rjust(3)   
     okno.blit(font.render(text_mince, True, (0, 0, 0)), (ROZLISENI_X / 2, ROZLISENI_Y - 40))
     okno.blit(tank, tank.get_rect(center = (round(pozice.x), round(pozice.y))))
-    
+    bullets.update()
+    bullets.draw(okno)
     if mince <= 0:
         okno.blit(broke, (0, 0)) 
     
     okno.blit(font.render(text, True, (0, 0, 0)), (32, 48))   
-    bullets.update()
-    bullets.draw(okno)
+
+
 #úplý konec
     pygame.display.update()
     hodiny.tick(FPS)
