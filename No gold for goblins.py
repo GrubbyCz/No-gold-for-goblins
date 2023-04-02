@@ -30,9 +30,11 @@ pozice_y = (ROZLISENI_Y - velikost_y) / 2
 font = pygame.font.SysFont('Consolas', 30)
 horníx = random.randint(0, 1000)
 horníy = ROZLISENI_X - (ROZLISENI_X + 70)
-mince = 2
+mince = 100
 trezor = pygame.image.load("trezor.png")
 broke = pygame.image.load("broke.png")
+
+zivotM = 3
 
 rychlostg0 = 1
 rychlostg1 = 2
@@ -196,8 +198,9 @@ while True:
     klavesy = pygame.key.get_pressed()
     for udalost in pygame.event.get():
         if udalost.type == pygame.USEREVENT:
-            counter += 1
-            text = str(counter).rjust(3) 
+            if mince > 0:
+                counter += 1     
+                text = str(counter).rjust(3) 
         if udalost.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
@@ -327,10 +330,13 @@ while True:
     for bullet in bullets:
         if bullet.hitbox.colliderect(hitbox_goblinM):
             bullet.kill()
-            enemyM_x = random.randint(0, 1900)
-            enemyM_y = random.randint(1, 1)
-            if enemyM_otoč == True:   
-                mince += 3
+            zivotM -= 1
+    if zivotM == 0:
+        zivotM = 3
+        enemyM_x = random.randint(0, 1900)
+        enemyM_y = random.randint(1, 1)
+        if enemyM_otoč == True:   
+             mince += 3
                 
 
 #NEPŘÁTELÉ...    
