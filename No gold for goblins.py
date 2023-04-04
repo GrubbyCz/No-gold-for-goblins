@@ -6,7 +6,7 @@ import pygame
 from pygame.sprite import Sprite
 from math import radians, sin, cos
 pygame.init()
-
+pygame.mixer.init()
 
 #proměnné
 
@@ -33,7 +33,7 @@ horníy = ROZLISENI_X - (ROZLISENI_X + 70)
 mince = 100
 trezor = pygame.image.load("trezor.png")
 broke = pygame.image.load("broke.png")
-
+pif = pygame.mixer.Sound("pif.mp3")
 zivotM = 3
 
 rychlostg0 = 1
@@ -209,6 +209,7 @@ while True:
             if udalost.key == pygame.K_SPACE:
                 bullet = Bullet(pozice, smer)
                 bullets.add(bullet)
+                pif.play()
 
 
 #okno
@@ -338,7 +339,8 @@ while True:
         if enemyM_otoč == True:   
              mince += 3
                 
-
+#sound
+                  
 #NEPŘÁTELÉ...    
 
 #goblin...0
